@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <p>{{ `name: ${name}, age: ${age}` }}</p>
+    <div v-if="posts.length">
+      <post-list :posts="posts" />
+    </div>
+    <div v-else>
+      <h4>loading</h4>
+    </div>
+    <div v-if="error">
+      <h5>{{ error }}</h5>
+    </div>
   </div>
 </template>
 
 <script>
+import PostList from '../components/PostList.vue';
+import getPosts from '../composables/getPosts';
 
 export default {
   name: 'HomeView',
+  components: { PostList },
   setup() {
-    let name = 'mario';
-    let age = 30;
+    const { posts, error, load } = getPosts();
 
-    return { name, age }
+    load();
+
+    return { posts, error }
   }
 }
 </script>
