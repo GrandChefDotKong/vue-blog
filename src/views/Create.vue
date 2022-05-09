@@ -1,8 +1,8 @@
 <template>
   <div class="create">
-      <form>
+      <form @submit.prevent="handleSubmit">
           <label for="title">Title</label>
-          <input :v-model="title" type="text" name="title" required>
+          <input v-model="title" type="text" name="title" required>
           <label for="content">Content</label>
           <textarea v-model="content" name="content" required>Enter your text here ...</textarea>
           <label for="tags">Tags (press enter to add a tag)</label>
@@ -10,10 +10,12 @@
           <div class="pill" v-for="tag in tags" :key="tag" >#{{ tag }}</div>
           <button>Add post</button>
       </form>
+      <div v-if="error">{{ error }}</div>
   </div>
 </template>
 <script>
 import { ref } from 'vue';
+import addPost from '../composables/addPost';
 
 export default {
     setup() {
@@ -21,6 +23,8 @@ export default {
         const content = ref('');
         const tags = ref([]);
         const tag = ref('');
+
+        const { error, load } = addPost();
 
         const addTag = () => {
             if(!tag.value) return;
@@ -32,7 +36,11 @@ export default {
             tag.value = "";
         }
 
-        return { title, content, tags, tag, addTag }
+        const handleSubmit = () => {
+            load(title.value, content.value, tags.value);
+        }
+
+        return { title, content, tags, tag, addTag, error, handleSubmit }
     }
 
 }

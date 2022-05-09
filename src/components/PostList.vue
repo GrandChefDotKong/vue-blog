@@ -12,12 +12,7 @@ import SinglePost from './SinglePost.vue';
 
 export default {
     components: { SinglePost },
-    props: ['posts'],
-    setup(props) {
-        onMounted(() => {
-            console.log('component mounted')
-        })
-    }
+    props: ['posts']
 }
 </script>
 

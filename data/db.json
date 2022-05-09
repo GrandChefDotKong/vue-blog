@@ -19,6 +19,15 @@
         "webdev",
         "coding"
       ]
+    },
+    {
+      "title": "New Post",
+      "body": "Post created with the form.",
+      "tags": [
+        "vue.js",
+        "html"
+      ],
+      "id": 3
     }
   ]
 }
