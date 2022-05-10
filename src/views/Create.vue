@@ -16,6 +16,7 @@
 <script>
 import { ref } from 'vue';
 import addPost from '../composables/addPost';
+import { useRouter } from 'vue-router';
 
 export default {
     setup() {
@@ -23,6 +24,8 @@ export default {
         const content = ref('');
         const tags = ref([]);
         const tag = ref('');
+
+        const router = useRouter();
 
         const { error, load } = addPost();
 
@@ -38,6 +41,7 @@ export default {
 
         const handleSubmit = () => {
             load(title.value, content.value, tags.value);
+            router.push({ name: 'home' });
         }
 
         return { title, content, tags, tag, addTag, error, handleSubmit }

@@ -28,6 +28,16 @@
         "html"
       ],
       "id": 3
+    },
+    {
+      "title": "Another Post",
+      "body": "this is another post made wwith the add a post form",
+      "tags": [
+        "html",
+        "vue.js",
+        "javascript"
+      ],
+      "id": 4
     }
   ]
 }
