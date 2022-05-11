@@ -1,4 +1,5 @@
 <template>
+  <div v-if="error">{{ error }}</div>
   <div class="post" v-if="post">
       <h3>{{ post.title }}</h3>
       <p class="pre">{{ post.body }}</p>
@@ -7,7 +8,6 @@
   <div v-else>
     <spinner />
   </div>
-  <div v-if="error">{{ error }}</div>
 </template>
 
 <script>
