@@ -1,35 +1,30 @@
-import { ref } from 'vue';
+import { setDoc, doc, collection } from "firebase/firestore";
+import { projectFirestore, timestamp } from '../firebase/config';
 
 const addPost = () => {
 
-    const error = ref(null);
-
     const load = async (title, content, tags) => {
+
+      const createdAt = timestamp.now();
+        console.log(createdAt);
       try {
 
         let post = {
             title: title,
             body: content,
-            tags: tags
+            tags: tags,
+            createdAt: createdAt
         }
 
-
-        let data = await fetch('http://localhost:3000/posts', { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(post)
-        });
-
-        if(!data.ok) {
-          throw Error('couldn\'t add the post :(');
-        }
+        const postRef = doc(collection(projectFirestore, "posts"));
+        await setDoc(postRef, post);
 
       } catch (err) {
-        error.value = err.message
+        console.log(err);
       }
     }
 
-    return { error, load };
+    return { load };
 }
 
 export default addPost;
